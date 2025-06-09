@@ -1,0 +1,29 @@
+# Основные зависимости для VideoCreator Pro
+
+# GUI
+PyQt6>=6.4.0
+
+# Работа с видео
+moviepy>=1.0.3
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.8
+
+# Работа с изображениями
+Pillow>=10.0.0
+
+# Научные вычисления
+numpy>=1.24.0
+
+# Работа с Google Sheets
+gspread>=5.10.0
+google-auth>=2.22.0
+google-auth-oauthlib>=1.0.0
+google-auth-httplib2>=0.1.0
+
+# HTTP запросы (для ElevenLabs API в script.py)
+requests>=2.31.0
+
+# Опциональные зависимости для разработки
+# pytest>=7.4.0
+# black>=23.0.0
+# flake8>=6.0.0

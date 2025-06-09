@@ -1,0 +1,38 @@
+{
+    "image_paths": [
+        "/Users/macuser/Downloads/ChatGPT Image May 15, 2025, 01_55_42 PM.png"
+    ],
+    "audio_tracks_info": [
+        {
+            "path": "/Users/macuser/Documents/Script/output/Овен.mp3",
+            "start_time": 0,
+            "duration": 38.71
+        },
+        {
+            "path": "/Users/macuser/Downloads/sad-dramatic-piano-sad-alone-drama-262415.mp3",
+            "start_time": 0,
+            "duration": 171.02
+        }
+    ],
+    "font_path": null,
+    "resolution": [
+        1920,
+        1080
+    ],
+    "duration": 60,
+    "title_text": "Овен",
+    "subtitle_text": "5 июня 2025 года Овнам предстоит день ярких карьерных импульсов и глубоких размышлений о будущем. Луна в Козероге формирует гармоничный аспект с Сатурном, придавая внутреннюю собранность и способность принимать зрелые решения. Это отличное время для обсуждений с руководством, планирования стратегии или анализа бизнес-проектов. Вечером возможно неожиданное сообщение, которое потребует быстрой, но разумной реакции. Не упустите шанс укрепить своё положение. В личной сфере полезно проявить инициативу, но не забывайте учитывать желания партнёра — баланс между личным и общим сейчас особенно важен.",
+    "text_color": "#ffffff",
+    "stroke_color": "#000000",
+    "stroke_width": 2,
+    "title_size": 40,
+    "subtitle_size": 24,
+    "effects": {
+        "typewriter": true,
+        "fade": false
+    },
+    "fps": 30,
+    "video_quality": "medium",
+    "codec_name": "libx264",
+    "name": "Овен"
+}

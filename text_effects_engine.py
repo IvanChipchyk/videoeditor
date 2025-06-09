@@ -235,8 +235,12 @@ class TextEffectsEngine:
                 return None
 
     def _apply_typewriter_effect(self, text_clip: TextClip, duration: int, fps: int = 30) -> Optional[CompositeVideoClip]:
-        logger.debug(f"Применение эффекта 'печатная машинка' к тексту '{str(text_clip.text)[:50]}...' длительностью {duration} сек, FPS={fps}.")
-        original_text = str(text_clip.text)
+        text_value = getattr(text_clip, 'text', getattr(text_clip, 'txt', ''))
+        logger.debug(
+            f"Применение эффекта 'печатная машинка' к тексту '{str(text_value)[:50]}...' "
+            f"длительностью {duration} сек, FPS={fps}."
+        )
+        original_text = str(text_value)
         if not original_text or duration <= 0:
             logger.warning("Для эффекта 'печатная машинка' текст пуст или длительность некорректна.")
             returned_clip = text_clip.with_duration(duration)

@@ -1,1 +1,17 @@
+# Обычные исключения
+__pycache__/
+*.pyc
+.DS_Store
+*.log
+*.mp4
+*.m4a
+
+# Секреты и конфигурации
+*.json
+*.pem
+*.key
+*.ssh
+*.pub
+.env
 elevenlabs-voice-generator-*.json
+

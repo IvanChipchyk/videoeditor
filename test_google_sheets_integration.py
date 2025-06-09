@@ -1,3 +1,6 @@
+import pytest
+pytest.skip("Utility module for manual use", allow_module_level=True)
+
 # Добавьте эту функцию в конец файла google_sheets_manager.py
 
 def test_google_sheets_connection(service_account_file: str, spreadsheet_id: str):

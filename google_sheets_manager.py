@@ -306,3 +306,36 @@ def load_theme_project(theme: str, service_account_file: str, spreadsheet_id: st
     sheets_manager = GoogleSheetsManager(service_account_file, spreadsheet_id, sheet_name)
     project_manager = ProjectDataManager(sheets_manager, audio_folder, templates_folder)
     return project_manager.load_project_data(theme)
+
+def test_google_sheets_connection(service_account_file: str, spreadsheet_id: str):
+    """Utility function used in tests to verify Google Sheets connectivity."""
+    result = {
+        "connected": False,
+        "spreadsheet_title": None,
+        "sheet_title": None,
+        "themes_count": 0,
+        "error": None
+    }
+    try:
+        import gspread
+        from google.oauth2.service_account import Credentials
+        SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+        creds = Credentials.from_service_account_file(service_account_file, scopes=SCOPES)
+        client = gspread.authorize(creds)
+        spreadsheet = client.open_by_key(spreadsheet_id)
+        sheet = spreadsheet.worksheet("Лист1")
+        result["spreadsheet_title"] = spreadsheet.title
+        result["sheet_title"] = sheet.title
+        themes_column = sheet.col_values(1)
+        themes_count = 0
+        for value in themes_column[1:]:
+            if value.strip():
+                themes_count += 1
+            else:
+                break
+        result["themes_count"] = themes_count
+        result["connected"] = True
+    except Exception as e:
+        result["error"] = str(e)
+    return result
+

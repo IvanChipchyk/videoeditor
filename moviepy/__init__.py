@@ -1,11 +1,28 @@
 try:
     from moviepy.editor import *  # type: ignore
 except Exception:
+    try:
+        import numpy as _np
+    except Exception:  # pragma: no cover - fallback when numpy not installed
+        class _NumpyMock:
+            @staticmethod
+            def zeros(shape):
+                if len(shape) == 2:
+                    return [[0] * shape[1] for _ in range(shape[0])]
+                return [0] * shape[0]
+        _np = _NumpyMock()
     class _BaseClip:
         def __init__(self, *args, **kwargs):
             self.duration = kwargs.get('duration', 0)
             self.size = kwargs.get('size')
             self.audio = None
+        @property
+        def w(self):
+            return self.size[0] if self.size else None
+
+        @property
+        def h(self):
+            return self.size[1] if self.size else None
         def with_duration(self, duration):
             self.duration = duration
             return self
@@ -53,6 +70,9 @@ except Exception:
             super().__init__(**kw)
             self.path = path
             self.duration = 1.0
+        def to_soundarray(self, fps=44100):
+            length = int(self.duration * fps)
+            return _np.zeros((length, 2))
         def __enter__(self):
             return self
         def __exit__(self, exc_type, exc, tb):

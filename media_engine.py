@@ -98,7 +98,13 @@ def create_image_clips(image_paths: List[str], resolution: Tuple[int, int], tota
                 source_image_clip_obj = ImageClip(current_image_path_for_moviepy)
                 source_image_clip_obj.fps = video_fps
 
-                current_moviepy_clip = source_image_clip_obj.resized(height=resolution[1])
+                resize_attr = getattr(source_image_clip_obj, 'resize', None)
+                if not resize_attr:
+                    resize_attr = getattr(source_image_clip_obj, 'resized', None)
+                if resize_attr:
+                    current_moviepy_clip = resize_attr(height=resolution[1])
+                else:
+                    current_moviepy_clip = source_image_clip_obj
                 
                 if current_moviepy_clip.w > resolution[0]:
                     if CROP_FUNCTION_AVAILABLE:
@@ -122,10 +128,12 @@ def create_image_clips(image_paths: List[str], resolution: Tuple[int, int], tota
 
                     clip_to_composite = final_clip_item
                     if final_clip_item.w > resolution[0] or final_clip_item.h > resolution[1]:
-                        if final_clip_item.w / final_clip_item.h > resolution[0] / resolution[1]:
-                             clip_to_composite = final_clip_item.resized(width=resolution[0])
-                        else:
-                             clip_to_composite = final_clip_item.resized(height=resolution[1])
+                        resize_attr = getattr(final_clip_item, 'resize', None) or getattr(final_clip_item, 'resized', None)
+                        if resize_attr:
+                            if final_clip_item.w / final_clip_item.h > resolution[0] / resolution[1]:
+                                clip_to_composite = resize_attr(width=resolution[0])
+                            else:
+                                clip_to_composite = resize_attr(height=resolution[1])
                     
                     if getattr(clip_to_composite, 'fps', None) is None: clip_to_composite.fps = video_fps
                     

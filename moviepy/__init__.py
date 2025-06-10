@@ -19,6 +19,19 @@ except Exception:
             pass
         def write_videofile(self, path, *args, **kwargs):
             open(path, 'wb').close()
+        def resize(self, **kwargs):
+            w = kwargs.get('width')
+            h = kwargs.get('height')
+            if w and h:
+                self.size = (w, h)
+            elif w and self.size:
+                self.size = (w, self.size[1])
+            elif h and self.size:
+                self.size = (self.size[0], h)
+            return self
+        # moviepy 2.x compatibility alias
+        def resized(self, **kwargs):
+            return self.resize(**kwargs)
     class TextClip(_BaseClip):
         def __init__(self, text='', font=None, font_size=12, color='white', **kw):
             super().__init__(**kw)
